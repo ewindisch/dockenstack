@@ -1,0 +1,2 @@
+# devstack sudoers rule
+devstack	ALL=(ALL) NOPASSWD: ALL
