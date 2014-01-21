@@ -78,3 +78,12 @@ nova boot --image docker-busybox:latest --flavor 1 test
 nova list
 docker ps
 ```
+
+
+# Authors
+
+* Paul Czarkowski
+
+# License
+
+Apache2 - see `LICENSE`
