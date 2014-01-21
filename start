@@ -10,7 +10,6 @@ mkdir /var/run/screen
 chmod 777 /var/run/screen
 
 su devstack -c '/devstack/tools/docker/install_docker.sh'
-
 su devstack -c '/devstack/stack.sh'
 
 bash 
