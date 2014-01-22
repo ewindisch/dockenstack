@@ -40,7 +40,8 @@ RUN chown root /etc/sudoers.d/devstack
 # Local scripts
 ADD wrapdocker /usr/local/bin/wrapdocker
 ADD start /usr/local/bin/start-devstack
-RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker
+ADD tempest /usr/local/bin/run-tempest
+RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker /usr/local/bin/run-tempest
 
 # Shared volume
 VOLUME /var/lib/docker
