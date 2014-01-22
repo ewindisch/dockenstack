@@ -59,9 +59,13 @@ RUN apt-get install -qqy libffi-dev
 
 # Install all pip requirements
 RUN pip install -r https://raw2.github.com/openstack/requirements/master/global-requirements.txt
+RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
+
+# Install prereq packages.
+RUN /devstack/tools/install_prereqs.sh
 
 # Copy in docker images
 ADD http://get.docker.io/images/openstack/docker-ut.tar.gz /devstack/files/docker-ut.tar.gz
