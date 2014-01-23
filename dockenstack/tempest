@@ -37,6 +37,6 @@ EOF
 su devstack -c '/devstack/tools/docker/install_docker.sh'
 su devstack -c '/devstack/stack.sh'
 
-su devstack -c '/opt/stack/tempest/run_tempest.sh -N -s'
+su devstack -c "/opt/stack/tempest/run_tempest.sh -N $@"
 
 #tail -f /opt/stack/logs/*
