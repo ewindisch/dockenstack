@@ -9,6 +9,16 @@ service rabbitmq-server start
 mkdir /var/run/screen
 chmod 777 /var/run/screen
 
+# Git repos
+echo <<EOF >>/devstack/localrc
+# Base GIT Repo URL
+# Another option is http://review.openstack.org/p
+GIT_BASE=${GIT_BASE:-git://git.openstack.org}
+# compute service
+NOVA_REPO=${NOVA_REPO:-${GIT_BASE}/openstack/nova.git}
+NOVA_BRANCH=${NOVA_BRANCH:-master}
+EOF
+
 su devstack -c '/devstack/tools/docker/install_docker.sh'
 su devstack -c '/devstack/stack.sh'
 
