@@ -51,8 +51,8 @@ VOLUME /var/lib/docker
 # as they are dynamic dependencies.
 #
 
-# Extracted from devstack
-RUN apt-get install -qqy bridge-utils pylint python-setuptools screen unzip wget psmisc git lsof openssh-server openssl vim-nox locate python-virtualenv python-unittest2 iputils-ping wget curl tcpdump euca2ools tar python2.7 gcc libxml2-dev python-dev python-eventlet python-routes python-greenlet python-sqlalchemy python-wsgiref python-pastedeploy python-xattr python-iso8601 python-dev python-lxml python-pastescript python-pastedeploy python-paste sqlite3 python-pysqlite2 python-sqlalchemy python-mysqldb python-webob python-greenlet python-routes libldap2-dev libsasl2-dev python-dateutil msgpack-python dnsmasq-base dnsmasq-utils kpartx parted iputils-arping python-mysqldb python-xattr python-lxml gawk iptables ebtables sqlite3 sudo libjs-jquery-tablesorter vlan curl genisoimage socat python-mox python-paste python-migrate python-gflags python-greenlet python-libxml2 python-routes python-numpy python-pastedeploy python-eventlet python-cheetah python-carrot python-tempita python-sqlalchemy python-suds python-lockfile python-m2crypto python-boto python-kombu python-feedparser python-iso8601 nbd-client lvm2 open-iscsi genisoimage sysfsutils sg3-utils tgt lvm2 qemu-utils libpq-dev python-dev open-iscsi python-numpy python-beautifulsoup python-dateutil python-paste python-pastedeploy python-anyjson python-routes python-xattr python-sqlalchemy python-webob python-kombu pylint python-eventlet python-nose python-sphinx python-mox python-kombu python-coverage python-cherrypy3 python-migrate libxslt1-dev
+# Install prereq packages.
+RUN /devstack/tools/install_prereqs.sh
 
 # Requirements for pip-requirements
 RUN apt-get install -qqy libffi-dev
@@ -63,9 +63,6 @@ RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements
 
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
-
-# Install prereq packages.
-RUN /devstack/tools/install_prereqs.sh
 
 # Copy in docker images
 ADD http://get.docker.io/images/openstack/docker-ut.tar.gz /devstack/files/docker-ut.tar.gz
