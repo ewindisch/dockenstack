@@ -14,6 +14,9 @@ if [ -n "$STABLE_RELEASE" ]; then
     # This regex sanitizes our input...
     STABLE_RELEASE=${STABLE_RELEASE//[^a-zA-Z0-9_]/}
     sed -n "/_BRANCH=/{ s/=.*/=stable\/${STABLE_RELEASE}/g; p; }" /devstack/stackrc >> /devstack/localrc.d/001-stable-branch
+
+    cd /devstack
+    git checkout stable/${STABLE_RELEASE}
 fi
 
 # Git repos
