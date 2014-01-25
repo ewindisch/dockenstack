@@ -1,76 +1,38 @@
-# Docker on Openstack on Docker on Vagrant
+# Docker on Openstack on Docker
 
-Running Openstack with the Docker driver in a Docker container.
+Running Openstack with the Docker driver in a priviledged Docker container using devstack.
 
-running Docker in Docker requires running docker in privileged mode.  This means the meat of the install has to happen in the `docker run` rather than `docker build`.  This means it takes a long time to run,  but once it's finally done you'll have a fully working openstack running in the container.
+This container takes some time to build as it precaches and preinstalls most or all network resources. This speeds up running the container and, when running many, eliminates the problems that might result from offline or rate-limited apt and pip services.
 
-Because so much stuff is going on here it can take some time to Build/Run.  I cheated a little bit with the `paulczar/dockenstack` container to help speed this up,  but can still take 2-3mins on a fast machine.
+While this speeds up the execution of the container itself, it can still take 2-4 minutes on a fast machine from "docker run" through having an operational OpenStack installation.
 
 # Fetch
 
 ```
-https://github.com/paulczar/dockenstack.git
-cd dockenstack
-```
+# Build & Run
 
-# Ubuntu with Docker
+### Trusted Build from index.docker.io
 
-## Build
+This leverages our "Trusted Build" process and daily-build system.
 
 ```
-docker build -t dockstack .
+docker run -privileged -lxc-conf=aa_profile=unconfined -t -i ewindisch/dockenstack
 ```
-
-## Run
 
 ### Self built
 
-This takes quite a long time... as it has to do a full devstack install.
+WARNING: This takes a while.
 
 ```
+git clone https://github.com/ewindisch/dockenstack.git
+cd dockenstack
+docker build -t dockenstack dockenstack
 docker run -privileged -lxc-conf=aa_profile=unconfined -t -i dockenstack
 ```
 
-### From index.docker.io
+# Using OpenStack
 
-This is quicker!
-
-```
-docker run -privileged -lxc-conf=aa_profile=unconfined -t -i paulczar/dockenstack
-```
-
-# Vagrant with Docker
-
-## Requirements
-
-* vagrant >= 1.3
-* virtualbox
-
-```
-vagrant plugin install vagrant-omnibus
-vagrant plugin install vagrant-berkshelf
-```
-
-## Build
-
-```
-vagrant up
-cd /vagrant
-docker build -t dockenstack .
-```
-
-## Run
-
-```
-vagrant up
-vagrant ssh
-sudo docker run -privileged -lxc-conf="aa_profile=unconfined" \
-    -t -i [paulczar/dockenstack|dockenstack]
-```
-
-# Using
-
-if you've started dockenstack interactively you'll end up with a shell and can run these steps immediately.   Otherwise you'll have to attach to the container once running.  ( or access via Horizon/APIs [not covered here])
+If you've started dockenstack interactively without extra arguments, you'll end up with a shell and can run these steps immediately.
 
 ```
 source /devstack/openrc
@@ -79,9 +41,29 @@ nova list
 docker ps
 ```
 
+# Running Tempest
+
+Launch the container as such:
+
+```
+docker run -privileged -lxc-conf=aa_profile=unconfined -t -i ewindisch/dockenstack /usr/local/bin/run-tempest
+```
+
+Running Tempest in Dockenstack may take approximately 30 minutes.
+
+Arguments to run-tempest may be passed, the arguments are the same as run_tempest.sh (see Tempest documentation / source)
+
+# Environment Variables
+
+Dockenstack currently accepts the following environment variables, which are likely to be expanded:
+
+GIT_BASE
+NOVA_REPO
+NOVA_BRANCH
 
 # Authors
 
+* Eric Windisch <ewindisch@docker.com>
 * Paul Czarkowski
 
 # License
