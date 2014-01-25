@@ -9,6 +9,13 @@ service rabbitmq-server start
 mkdir /var/run/screen
 chmod 777 /var/run/screen
 
+if [ -n "$STABLE_RELEASE" ]; then
+    # Sets the branch for each project, if tagging a stable release.
+    # This regex sanitizes our input...
+    STABLE_RELEASE=${STABLE_RELEASE//[^a-zA-Z0-9_]/}
+    sed -n "/_BRANCH=/{ s/=.*/=stable\/${STABLE_RELEASE}/g; p; }" /devstack/stackrc >> /devstack/localrc.d/001-stable-branch
+fi
+
 # Git repos
 echo <<EOF >>/devstack/localrc.d/005-nova-git
 # Base GIT Repo URL
