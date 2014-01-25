@@ -42,7 +42,7 @@ ADD wrapdocker /usr/local/bin/wrapdocker
 ADD devstack-init /usr/local/bin/devstack-init
 ADD start /usr/local/bin/start-devstack
 ADD tempest /usr/local/bin/run-tempest
-RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker /usr/local/bin/run-tempest
+RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker /usr/local/bin/run-tempest /usr/local/bin/devstack-init
 
 # Shared volume
 VOLUME /var/lib/docker
