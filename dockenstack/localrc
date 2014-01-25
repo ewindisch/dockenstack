@@ -12,3 +12,8 @@ SCREEN_LOGDIR=/opt/stack/logs
 IMAGE_URLS=
 
 VIRT_DRIVER=docker
+
+# Include ".d" directory
+for script in localrc.d/*; do
+    . $script
+done

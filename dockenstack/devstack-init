@@ -10,7 +10,7 @@ mkdir /var/run/screen
 chmod 777 /var/run/screen
 
 # Git repos
-echo <<EOF >>/devstack/localrc
+echo <<EOF >>/devstack/localrc.d/005-nova-git
 # Base GIT Repo URL
 # Another option is http://review.openstack.org/p
 GIT_BASE=${GIT_BASE:-git://git.openstack.org}
@@ -21,7 +21,3 @@ EOF
 
 su devstack -c '/devstack/tools/docker/install_docker.sh'
 su devstack -c '/devstack/stack.sh'
-
-bash 
-
-#tail -f /opt/stack/logs/*

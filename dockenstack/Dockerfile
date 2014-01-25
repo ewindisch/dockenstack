@@ -39,6 +39,7 @@ RUN chown root /etc/sudoers.d/devstack
 
 # Local scripts
 ADD wrapdocker /usr/local/bin/wrapdocker
+ADD devstack-init /usr/local/bin/devstack-init
 ADD start /usr/local/bin/start-devstack
 ADD tempest /usr/local/bin/run-tempest
 RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker /usr/local/bin/run-tempest
@@ -69,9 +70,10 @@ ADD http://get.docker.io/images/openstack/docker-ut.tar.gz /devstack/files/docke
 ADD http://get.docker.io/images/openstack/docker-registry.tar.gz /devstack/files/docker-registry.tar.gz
 RUN chmod 644 /devstack/files/docker*.gz
 
+ADD localrc /devstack/localrc
+ADD localrc.d /devstack/localrc.d
+
 # Fix ownership of all files
 RUN chown -R devstack /devstack
-
-ADD localrc /devstack/localrc
 
 CMD ["/usr/local/bin/start-devstack"]
