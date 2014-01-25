@@ -6,12 +6,9 @@ This container takes some time to build as it precaches and preinstalls most or 
 
 While this speeds up the execution of the container itself, it can still take 2-4 minutes on a fast machine from "docker run" through having an operational OpenStack installation.
 
-# Fetch
-
-```
 # Build & Run
 
-### Trusted Build from index.docker.io
+## Trusted Build from index.docker.io
 
 This leverages our "Trusted Build" process and daily-build system.
 
@@ -19,7 +16,7 @@ This leverages our "Trusted Build" process and daily-build system.
 docker run -privileged -lxc-conf=aa_profile=unconfined -t -i ewindisch/dockenstack
 ```
 
-### Self built
+## Self built
 
 WARNING: This takes a while.
 
@@ -40,6 +37,8 @@ nova boot --image docker-busybox:latest --flavor 1 test
 nova list
 docker ps
 ```
+
+A future version of this README will explain how to use the OpenStack installation from outside of the dockenstack container.
 
 # Running Tempest
 
