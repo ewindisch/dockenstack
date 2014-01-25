@@ -9,6 +9,14 @@ VERBOSE=True
 LOG_COLOR=True
 SCREEN_LOGDIR=/opt/stack/logs
 
+# Workaround bug in devstack that
+# prefers 'lo' over better options such as eth0.
+#
+# There also happens to be a bug with the docker driver
+# and the use of 127.0.0.1:
+# http://lists.openstack.org/pipermail/openstack-dev/2014-January/024383.html
+HOST_IP_IFACE=eth0
+
 IMAGE_URLS=
 
 VIRT_DRIVER=docker
