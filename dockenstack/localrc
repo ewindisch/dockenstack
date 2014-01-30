@@ -22,6 +22,6 @@ IMAGE_URLS=
 VIRT_DRIVER=docker
 
 # Include ".d" directory
-for script in localrc.d/*; do
+for script in /devstack/localrc.d/*; do
     . $script
 done
