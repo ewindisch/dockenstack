@@ -4,12 +4,7 @@
 FROM ubuntu:raring
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
-EXPOSE 80
-EXPOSE 5000
-EXPOSE 8773
-EXPOSE 8774
-EXPOSE 8776
-EXPOSE 9292
+EXPOSE 80 5000 8773 8774 8776 9292
 
 RUN apt-get update
 RUN apt-get install -qqy software-properties-common
