@@ -11,9 +11,6 @@ EXPOSE 8774
 EXPOSE 8776
 EXPOSE 9292
 
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -s /bin/true /sbin/initctl
-
 RUN apt-get update
 RUN apt-get install -qqv software-properties-common python-software-properties
 
