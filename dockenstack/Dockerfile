@@ -1,11 +1,8 @@
-# Installs runit for service management
-#
-# Author: Paul Czarkowski
-# Date: 10/20/2013
-
+# Eric Windisch '2014
+# Forked from code by original author: Paul Czarkowski
 
 FROM paulczar/raring-cloud-img
-MAINTAINER Paul Czarkowski "paul.czarkowski@rackspace.com"
+MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80
 EXPOSE 5000
