@@ -23,7 +23,8 @@ WARNING: This takes a while.
 ```
 git clone https://github.com/ewindisch/dockenstack.git
 cd dockenstack
-docker build -t dockenstack dockenstack
+docker build -t ewindisch/dockenstack-base dockenstack
+docker build -t ewindisch/dockenstack dockenstack
 docker run -privileged -lxc-conf=aa_profile=unconfined -t -i dockenstack
 ```
 
