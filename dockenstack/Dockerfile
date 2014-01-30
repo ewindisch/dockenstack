@@ -1,7 +1,7 @@
 # Eric Windisch '2014
 # Forked from code by original author: Paul Czarkowski
 
-FROM paulczar/raring-cloud-img
+FROM ubuntu:raring
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80
