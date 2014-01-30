@@ -12,7 +12,7 @@ EXPOSE 8776
 EXPOSE 9292
 
 RUN apt-get update
-RUN apt-get install -qqv software-properties-common python-software-properties
+RUN apt-get install -qqy software-properties-common
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
 RUN apt-add-repository 'deb http://get.docker.io/ubuntu docker main'
