@@ -7,7 +7,7 @@ service rabbitmq-server start
 /usr/local/bin/wrapdocker 
 
 mkdir /var/run/screen
-chmod 777 /var/run/screen
+chmod 775 /var/run/screen
 
 if [ -n "$STABLE_RELEASE" ]; then
     # Sets the branch for each project, if tagging a stable release.
