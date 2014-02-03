@@ -20,19 +20,3 @@ RUN echo 'mysql-server mysql-server/root_password_again password devstack' | deb
 RUN apt-get -qqy install mysql-server
 
 RUN apt-get -qqy install rabbitmq-server
-
-# Setup devstack user
-RUN useradd devstack && usermod -a -G docker devstack
-ADD devstack.sudo /etc/sudoers.d/devstack
-RUN chown root /etc/sudoers.d/devstack
-
-# Local scripts
-ADD wrapdocker /usr/local/bin/wrapdocker
-ADD devstack-init /usr/local/bin/devstack-init
-ADD start /usr/local/bin/start-devstack
-ADD tempest /usr/local/bin/run-tempest
-RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker /usr/local/bin/run-tempest /usr/local/bin/devstack-init
-
-# Shared volume
-VOLUME /var/lib/docker
-

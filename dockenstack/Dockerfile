@@ -9,6 +9,21 @@ MAINTAINER Eric Windisch "ewindisch@docker.com"
 # as they are dynamic dependencies.
 #
 
+# Setup devstack user
+RUN useradd devstack && usermod -a -G docker devstack
+ADD devstack.sudo /etc/sudoers.d/devstack
+RUN chown root /etc/sudoers.d/devstack
+
+# Local scripts
+ADD wrapdocker /usr/local/bin/wrapdocker
+ADD devstack-init /usr/local/bin/devstack-init
+ADD start /usr/local/bin/start-devstack
+ADD tempest /usr/local/bin/run-tempest
+RUN chmod +x /usr/local/bin/start-devstack /usr/local/bin/wrapdocker /usr/local/bin/run-tempest /usr/local/bin/devstack-init
+
+# Shared volume
+VOLUME /var/lib/docker
+
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
 
