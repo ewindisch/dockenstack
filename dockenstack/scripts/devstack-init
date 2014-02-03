@@ -4,7 +4,7 @@ mysqld_safe &
 
 service rabbitmq-server start
 
-/usr/local/bin/wrapdocker 
+/opt/dockenstack/bin/wrapdocker 
 
 if [ -n "$STABLE_RELEASE" ]; then
     # Sets the branch for each project, if tagging a stable release.

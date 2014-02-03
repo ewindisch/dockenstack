@@ -1,0 +1,3 @@
+#!/bin/sh
+/opt/dockenstack/bin/devstack-init
+bash
