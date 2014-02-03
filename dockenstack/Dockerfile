@@ -23,9 +23,11 @@ RUN pip install -r https://raw2.github.com/openstack/requirements/master/global-
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
 # Copy in docker images
-ADD http://get.docker.io/images/openstack/docker-ut.tar.gz /devstack/files/docker-ut.tar.gz
-ADD http://get.docker.io/images/openstack/docker-registry.tar.gz /devstack/files/docker-registry.tar.gz
-RUN chmod 644 /devstack/files/docker*.gz
+RUN mkdir -p /opt/dockenstack/images
+ADD http://get.docker.io/images/openstack/docker-ut.tar.gz /opt/dockenstack/images/busybox.tar.gz
+# Comment this out until we can update the registry image!
+#ADD http://get.docker.io/images/openstack/docker-registry.tar.gz /opt/dockenstack/images/registry.tar.gz
+RUN chmod 644 /opt/dockenstack/images/*
 
 ADD localrc /devstack/localrc
 ADD localrc.d /devstack/localrc.d
