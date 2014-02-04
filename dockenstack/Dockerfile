@@ -16,9 +16,6 @@ ADD devstack.sudo /etc/sudoers.d/devstack
 # Local scripts
 ADD scripts /opt/dockenstack/bin
 
-# Shared volume
-VOLUME /var/lib/docker
-
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
 

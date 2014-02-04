@@ -81,9 +81,9 @@ popd >/dev/null
 # otherwise, spawn a shell as well
 if [ "$PORT" ]
 then
-  exec docker -d -H 0.0.0.0:$PORT 2>&1 >/dev/null
+  exec docker -d -s=devicemapper -H 0.0.0.0:$PORT 2>&1 >/dev/null
 else
-  docker -d 2>&1 >/dev/null &
+  docker -d -s=devicemapper 2>&1 >/dev/null &
   while ! /bin/echo -e 'GET /v1.3/version HTTP/1.0\n\n' | socat - unix-connect:/var/run/docker.sock | grep -q '200 OK'; do
     sleep 1
   done

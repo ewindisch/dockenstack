@@ -61,6 +61,10 @@ GIT_BASE
 NOVA_REPO
 NOVA_BRANCH
 
+# Notes
+
+* AUFS / Volumes - Using AUFS and nested-docker, one normally has to mount /var/lib/docker as a volume or a bind-mount. We do not do that. Instead, we configure the nested docker with a devicemapper driver. This should provide maximum compatibility for varying host configurations.
+
 # Authors
 
 * Eric Windisch <ewindisch@docker.com>
