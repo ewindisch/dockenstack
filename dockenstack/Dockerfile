@@ -22,6 +22,9 @@ RUN git clone https://github.com/openstack-dev/devstack /devstack
 # Install prereq packages.
 RUN /devstack/tools/install_prereqs.sh
 
+# Pre-download all "NOPRIME" packages
+RUN /opt/dockenstack/bin/apt-cache-devstack
+
 # Requirements for pip-requirements
 RUN apt-get install -qqy libffi-dev
 

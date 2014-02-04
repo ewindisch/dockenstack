@@ -1,0 +1,4 @@
+#!/bin/bash
+pushd /devstack
+apt-get install -qqyd $(grep -h NOPRIME files/apts/* | sed '/dist/d; s/\s*#.*//;')
+popd
