@@ -15,6 +15,7 @@ ADD devstack.sudo /etc/sudoers.d/devstack
 
 # Local scripts
 ADD scripts /opt/dockenstack/bin
+RUN chmod 755 /opt/devstack/bin/*
 
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
