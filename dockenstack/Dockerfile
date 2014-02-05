@@ -19,6 +19,9 @@ ADD scripts /opt/dockenstack/bin
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
 
+# Patch devstack
+RUN /opt/dockenstack/bin/devstack-patches
+
 # Install prereq packages.
 RUN /devstack/tools/install_prereqs.sh
 
