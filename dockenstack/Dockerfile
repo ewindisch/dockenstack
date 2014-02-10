@@ -12,7 +12,7 @@ MAINTAINER Eric Windisch "ewindisch@docker.com"
 # Setup devstack user
 RUN useradd devstack && usermod -a -G docker devstack
 ADD devstack.sudo /etc/sudoers.d/devstack
-RUN chown root /etc/sudoers.d/devstack
+RUN chown root:root /etc/sudoers.d/devstack
 
 # Local scripts
 ADD scripts /opt/dockenstack/bin
