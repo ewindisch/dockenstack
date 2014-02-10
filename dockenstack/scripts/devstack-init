@@ -35,7 +35,12 @@ function docker_has_image {
 #
 # For Havana and Icehouse-2
 if ! ( docker_has_image busybox ); then
-    if [ -f /opt/dockenstack/images/busybox.img ]; then
+    # workaround bug: https://github.com/dotcloud/docker/issues/4041
+    if [ -d /opt/dockenstack/images/busybox.img ]; then
+        pushd /opt/dockenstack/images/busybox.img
+        tar c . | docker load
+        popd
+    elif [ -f /opt/dockenstack/images/busybox.img ]; then
         docker load < /opt/dockenstack/images/busybox.img
     else
         docker pull busybox
@@ -44,7 +49,12 @@ if ! ( docker_has_image busybox ); then
 fi
 # Icehouse-3
 if ! ( docker_has_image cirros ); then
-    if [ -f /opt/dockenstack/images/cirros.img ]; then
+    # workaround bug: https://github.com/dotcloud/docker/issues/4041
+    if [ -d /opt/dockenstack/images/cirros.img ]; then
+        pushd /opt/dockenstack/images/cirros.img
+        tar c . | docker load
+        popd
+    elif [ -f /opt/dockenstack/images/cirros.img ]; then
         docker load < /opt/dockenstack/images/cirros.img
     else
         docker pull cirros
@@ -52,7 +62,12 @@ if ! ( docker_has_image cirros ); then
 fi
 # Havana+
 if ! ( docker_has_image registry ); then
-    if [ -f /opt/dockenstack/images/registry.img ]; then
+    # workaround bug: https://github.com/dotcloud/docker/issues/4041
+    if [ -d /opt/dockenstack/images/registry.img ]; then
+        pushd /opt/dockenstack/images/registry.img
+        tar c . | docker load
+        popd
+    elif [ -f /opt/dockenstack/images/registry.img ]; then
         docker load < /opt/dockenstack/images/registry.img
     else
         docker pull registry
