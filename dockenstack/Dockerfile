@@ -39,11 +39,13 @@ RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements
 
 # Copy in docker images
 RUN mkdir -p /opt/dockenstack/images
-ADD https://s3.amazonaws.com/openstack-ci-docker/busybox.img /opt/dockenstack/images/busybox.img
-ADD https://s3.amazonaws.com/openstack-ci-docker/cirros.img /opt/dockenstack/images/cirros.img
-ADD https://s3.amazonaws.com/openstack-ci-docker/registry.img /opt/dockenstack/images/registry.img
+WORKDIR /opt/dockenstack/images
+RUN wget https://s3.amazonaws.com/openstack-ci-docker/busybox.img
+RUN wget https://s3.amazonaws.com/openstack-ci-docker/cirros.img
+RUN wget https://s3.amazonaws.com/openstack-ci-docker/registry.img
 RUN chmod 644 /opt/dockenstack/images/*
 
+WORKDIR /devstack
 ADD localrc /devstack/localrc
 ADD localrc.d /devstack/localrc.d
 
