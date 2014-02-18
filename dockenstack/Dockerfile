@@ -37,6 +37,9 @@ RUN apt-get install -qqy libffi-dev
 RUN pip install -r https://raw2.github.com/openstack/requirements/master/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
+# Pre-checkout git repos
+RUN /bin/bash /opt/dockenstack/bin/openstack-git-checkout
+
 # Copy in docker images
 RUN mkdir -p /opt/dockenstack/images
 WORKDIR /opt/dockenstack/images
