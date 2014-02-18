@@ -32,16 +32,6 @@ function docker_has_image {
 
 # Some of these tags are to support differing versions of
 # devstack...
-#
-# For Havana and Icehouse-2
-if ! ( docker_has_image busybox ); then
-    if [ -f /opt/dockenstack/images/busybox.img ]; then
-        docker load < /opt/dockenstack/images/busybox.img
-    else
-        docker pull busybox
-    fi
-    docker tag busybox busybox-ut
-fi
 # Icehouse-3
 if ! ( docker_has_image cirros ); then
     if [ -f /opt/dockenstack/images/cirros.img ]; then

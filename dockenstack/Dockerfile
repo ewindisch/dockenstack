@@ -34,7 +34,14 @@ RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
 RUN apt-get install -qqy libffi-dev
 
 # Install all pip requirements
-RUN pip install -r https://raw2.github.com/openstack/requirements/master/global-requirements.txt
+#
+# Patch requirements to exclude pyghmi 0.5.9.1 pending merge:
+# BUG(ewindisch): https://review.openstack.org/#/c/74246/
+RUN mkdir -p /opt/dockenstack/cache
+WORKDIR /opt/dockenstack/cache
+RUN git clone https://github.com/openstack/requirements
+RUN sed -i 's/pyghmi.*/pyghmi>=0.5.8,!=0.5.9.1/' requirements/global-requirements.txt
+RUN pip install -r requirements/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
 # Pre-checkout git repos
@@ -43,9 +50,8 @@ RUN /bin/bash /opt/dockenstack/bin/openstack-git-checkout
 # Copy in docker images
 RUN mkdir -p /opt/dockenstack/images
 WORKDIR /opt/dockenstack/images
-RUN wget https://s3.amazonaws.com/openstack-ci-docker/busybox.img
-RUN wget https://s3.amazonaws.com/openstack-ci-docker/cirros.img
-RUN wget https://s3.amazonaws.com/openstack-ci-docker/registry.img
+RUN wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/cirros.img
+RUN wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/registry.img
 RUN chmod 644 /opt/dockenstack/images/*
 
 WORKDIR /devstack
