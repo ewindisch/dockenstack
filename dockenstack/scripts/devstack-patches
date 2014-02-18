@@ -1,12 +1,6 @@
 #!/bin/bash
 cd /devstack
 
-git config --global user.email "docker-ci@docker.com"
-git config --global user.name "Docker OpenStack CI"
-
-# Set default image name for docker hypervisor
-git fetch https://review.openstack.org/openstack-dev/devstack refs/changes/38/72738/2 && git cherry-pick FETCH_HEAD
-
 # Make libguestfs noprime
 # https://review.openstack.org/#/c/70774/
 sed -i 's/^python-guestfs$/python-guestfs # NOPRIME/' files/apts/n-cpu
