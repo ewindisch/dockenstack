@@ -61,4 +61,4 @@ ADD localrc.d /devstack/localrc.d
 # Fix ownership of all files
 RUN chown -R devstack /devstack
 
-CMD ["/usr/local/bin/start"]
+CMD ["/opt/dockenstack/bin/start"]
