@@ -40,7 +40,7 @@ RUN apt-get install -qqy libffi-dev
 RUN mkdir -p /opt/dockenstack/cache
 WORKDIR /opt/dockenstack/cache
 RUN git clone https://github.com/openstack/requirements
-RUN sed -i 's/pyghmi.*/pyghmi>=0.5.8,!=0.5.9.1/' requirements/global-requirements.txt
+RUN sed -i '/pyghmi.*/{ d; }' requirements/global-requirements.txt
 RUN pip install -r requirements/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
