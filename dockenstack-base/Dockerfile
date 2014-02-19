@@ -20,3 +20,10 @@ RUN echo 'mysql-server mysql-server/root_password_again password devstack' | deb
 RUN apt-get -qqy install mysql-server
 
 RUN apt-get -qqy install rabbitmq-server
+
+# Copy in docker images
+RUN mkdir -p /opt/dockenstack/images
+WORKDIR /opt/dockenstack/images
+RUN wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.c
+RUN wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.c
+RUN chmod 644 /opt/dockenstack/images/*
