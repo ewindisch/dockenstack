@@ -1,9 +1,5 @@
-disable_service rabbit
-disable_service qpid
 disable_service horizon
 disable_service cinder
 disable_service n-novnc
 disable_service n-xvnc
 disable_service n-spice
-
-enable_service zeromq
