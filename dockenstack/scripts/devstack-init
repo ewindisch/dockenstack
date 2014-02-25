@@ -6,6 +6,9 @@ service rabbitmq-server start
 
 /opt/dockenstack/bin/wrapdocker 
 
+# Matches the fixed range in the devstack localrc
+ifconfig eth0:1 inet 10.1.0.1/24
+
 if [ -n "$STABLE_RELEASE" ]; then
     # Sets the branch for each project, if tagging a stable release.
     # This regex sanitizes our input...
