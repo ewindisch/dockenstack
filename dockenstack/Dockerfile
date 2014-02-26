@@ -14,6 +14,9 @@ RUN useradd devstack && usermod -a -G docker devstack
 ADD devstack.sudo /etc/sudoers.d/devstack
 RUN chown root:root /etc/sudoers.d/devstack
 
+RUN mkdir -m 755 -p /opt/stack; \
+    chown devstack:devstack /opt/stack
+
 # Local scripts
 ADD scripts /opt/dockenstack/bin
 RUN chmod 755 /opt/dockenstack/bin/*
@@ -45,7 +48,7 @@ RUN pip install -r requirements/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
 # Pre-checkout git repos
-RUN /bin/bash /opt/dockenstack/bin/openstack-git-checkout
+RUN su devstack -c '/bin/bash /opt/dockenstack/bin/openstack-git-checkout'
 
 WORKDIR /devstack
 ADD localrc /devstack/localrc
