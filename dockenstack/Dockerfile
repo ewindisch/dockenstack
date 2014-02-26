@@ -15,6 +15,9 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F9
 # Install utilities
 RUN apt-get -qqy install git socat curl sudo apt-transport-https vim
 
+# Extra requirements for pip-requirements
+RUN apt-get install -qqy libffi-dev
+
 # Configure and install MySQL
 RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-set-selections; \
     echo 'mysql-server mysql-server/root_password_again password devstack' | debconf-set-selections; \
@@ -54,9 +57,6 @@ RUN /devstack/tools/install_prereqs.sh
 
 # Pre-download all "NOPRIME" packages
 RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
-
-# Requirements for pip-requirements
-RUN apt-get install -qqy libffi-dev
 
 # Install all pip requirements
 RUN pip install -r https://github.com/openstack/requirements/commits/master/global-requirements.txt
