@@ -59,14 +59,7 @@ RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
 RUN apt-get install -qqy libffi-dev
 
 # Install all pip requirements
-#
-# Patch requirements to exclude pyghmi 0.5.9.1 pending merge:
-# BUG(ewindisch): https://review.openstack.org/#/c/74246/
-RUN mkdir -p /opt/dockenstack/cache
-WORKDIR /opt/dockenstack/cache
-RUN git clone https://github.com/openstack/requirements
-RUN sed -i '/pyghmi.*/{ d; }' requirements/global-requirements.txt
-RUN pip install -r requirements/global-requirements.txt
+RUN pip install -r https://github.com/openstack/requirements/commits/master/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
 # Pre-checkout git repos
