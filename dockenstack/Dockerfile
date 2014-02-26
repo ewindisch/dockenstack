@@ -1,13 +1,35 @@
 # Eric Windisch '2014
 # Forked from code by original author: Paul Czarkowski
 
-FROM ewindisch/dockenstack-base
+FROM ubuntu:raring
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
-#
-# The below images will need to be regenerated periodically
-# as they are dynamic dependencies.
-#
+EXPOSE 80 5000 8773 8774 8776 9292
+
+# Install Docker
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
+    echo 'deb http://get.docker.io/ubuntu docker main' > /etc/apt/sources.list.d/docker.list; \
+    apt-get update; \
+    apt-get install -qqy lxc-docker
+
+# Install utilities
+RUN apt-get -qqy install git socat curl sudo apt-transport-https vim
+
+# Configure and install MySQL
+RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-set-selections; \
+    echo 'mysql-server mysql-server/root_password_again password devstack' | debconf-set-selections; \
+    apt-get -qqy install mysql-server
+
+# Install RabbitMQ
+RUN apt-get -qqy install rabbitmq-server
+
+# Copy in docker images
+RUN mkdir -m 755 -p /opt/dockenstack/images
+WORKDIR /opt/dockenstack/images
+RUN umask 022; \
+    wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/cirros.img
+RUN umask 022; \
+    wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/registry.img
 
 # Setup devstack user
 RUN useradd devstack && usermod -a -G docker devstack
