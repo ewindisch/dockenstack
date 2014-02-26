@@ -59,7 +59,7 @@ RUN /devstack/tools/install_prereqs.sh
 RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
 
 # Install all pip requirements
-RUN pip install -r https://github.com/openstack/requirements/commits/master/global-requirements.txt
+RUN pip install -r https://raw.github.com/openstack/requirements/master/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
 
 # Pre-checkout git repos
