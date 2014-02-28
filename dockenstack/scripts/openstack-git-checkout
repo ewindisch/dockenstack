@@ -3,4 +3,4 @@
 cd /devstack
 . functions
 . stackrc
-cat <(echo ". functions; . stackrc") <(for project in $(declare | sed -n '/_REPO=/{ s/^\(.*\)_REPO=.*/\1/; p; }'); do eval "echo git_clone \$${project}_REPO $(git grep -h ${project}_DIR= | sed 's/.*=//') \$${project}_BRANCH || :";  done | grep git.openstack.org) | bash
+cat <(echo ". functions; . stackrc") <(for project in $(declare | sed -n '/_REPO=/{ s/^\(.*\)_REPO=.*/\1/; p; }'); do eval "echo git_clone \$${project}_REPO $(git grep -h ${project}_DIR= | sed 's/.*=//') \$${project}_BRANCH \|\| :";  done | grep git.openstack.org) | bash
