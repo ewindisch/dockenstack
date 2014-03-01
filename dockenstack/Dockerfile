@@ -35,12 +35,11 @@ RUN umask 022; \
     wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/registry.img
 
 # Setup devstack user
-RUN useradd devstack && usermod -a -G docker devstack
+RUN mkdir -p /opt; \
+    useradd -m -s /bin/bash -d /opt/stack devstack && \
+    usermod -a -G docker devstack
 ADD devstack.sudo /etc/sudoers.d/devstack
 RUN chown root:root /etc/sudoers.d/devstack
-
-RUN mkdir -m 755 -p /opt/stack; \
-    chown devstack:devstack /opt/stack
 
 # Local scripts
 ADD scripts /opt/dockenstack/bin
