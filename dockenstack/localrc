@@ -1,3 +1,5 @@
+export PATH="$PATH:/sbin"
+
 DATABASE_PASSWORD=devstack
 RABBIT_PASSWORD=devstack
 SERVICE_TOKEN=devstack
