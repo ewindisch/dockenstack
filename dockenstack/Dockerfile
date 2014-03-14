@@ -30,9 +30,11 @@ RUN apt-get -qqy install rabbitmq-server
 RUN mkdir -m 755 -p /opt/dockenstack/images
 WORKDIR /opt/dockenstack/images
 RUN umask 022; \
-    wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/cirros.img
+    wget --progress=dot:mega \
+         http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/cirros.img
 RUN umask 022; \
-    wget http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/registry.img
+    wget --progress=dot:mega \
+    http://35d32e50e9d5a9dddd5f-7400ae4d3b198289837a7cdf652ffd5a.r94.cf1.rackcdn.com/registry.img
 
 # Setup devstack user
 RUN mkdir -p /opt; \
