@@ -23,6 +23,14 @@ IMAGE_URLS=
 
 VIRT_DRIVER=docker
 
+# Default to using Eric's private branch
+# which has important fixes and, furthermore,
+# still has docker available...
+# -- this will be changed to using the stackforge
+#    plugin, once it is better tested.
+NOVA_BRANCH=docker-ci
+NOVA_REPO=https://github.com/ewindisch/nova
+
 # Include ".d" directory
 for script in /devstack/localrc.d/*; do
     . $script

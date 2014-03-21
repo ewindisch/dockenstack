@@ -50,6 +50,9 @@ RUN chmod 755 /opt/dockenstack/bin/*
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
 
+# Last known-working version of Devstack (before Docker was removed)
+RUN cd /devstack; git checkout 3c78e080864c9b202132d8ce0e493933f3d2ab36
+
 # Patch devstack
 RUN /bin/bash /opt/dockenstack/bin/devstack-patches
 
