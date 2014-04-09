@@ -1,7 +1,7 @@
 # Eric Windisch '2014
 # Forked from code by original author: Paul Czarkowski
 
-FROM ubuntu:raring
+FROM ubuntu:saucy
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80 5000 8773 8774 8776 9292
