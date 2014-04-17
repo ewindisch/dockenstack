@@ -1,10 +1,12 @@
-# Docker on Openstack on Docker
+# Openstack on Docker
 
-Running Openstack with the Docker driver in a priviledged Docker container using devstack.
+Dockenstack builds an image for running OpenStack's devstack development and testing environment inside of a Docker container. This image currently supports running the docker and libvirt-lxc virtualization drivers for Nova. KVM/Qemu support is being tested.
 
-This container takes some time to build as it precaches and preinstalls most or all network resources. This speeds up running the container and, when running many, eliminates the problems that might result from offline or rate-limited apt and pip services.
+Using dockenstack, developers may quickly iterate changes in a container and locally invoke functional tests without needing to first submit their changes for code-review.
 
-While this speeds up the execution of the container itself, it can still take 2-4 minutes on a fast machine from "docker run" through having an operational OpenStack installation.
+The quick iteration cycle of dockenstack versus other local environments (such as devstack-vagrant) is accomplished by precaching and preinstalling most or all network resources and OS packages. This speeds up running the container and, when running many, eliminates the problems that might result from offline or rate-limited apt and pip services.
+
+Users may expect dockenstack to take 2-4 minutes on a fast machine from "docker run" through having an operational OpenStack installation.
 
 # Build & Run
 
@@ -13,7 +15,7 @@ While this speeds up the execution of the container itself, it can still take 2-
 This leverages our "Trusted Build" process and daily-build system.
 
 ```
-docker run -privileged -lxc-conf=aa_profile=unconfined -t -i ewindisch/dockenstack
+docker run -privileged -t -i ewindisch/dockenstack
 ```
 
 ## Self built
@@ -23,9 +25,8 @@ WARNING: This takes a while.
 ```
 git clone https://github.com/ewindisch/dockenstack.git
 cd dockenstack
-docker build -t ewindisch/dockenstack-base dockenstack
 docker build -t ewindisch/dockenstack dockenstack
-docker run -privileged -lxc-conf=aa_profile=unconfined -t -i dockenstack
+docker run -privileged -t -i dockenstack
 ```
 
 # Using OpenStack
@@ -46,7 +47,7 @@ A future version of this README will explain how to use the OpenStack installati
 Launch the container as such:
 
 ```
-docker run -privileged -lxc-conf=aa_profile=unconfined -t -i ewindisch/dockenstack /usr/local/bin/run-tempest
+docker run -privileged -t -i ewindisch/dockenstack /usr/local/bin/run-tempest
 ```
 
 Running Tempest in Dockenstack may take approximately 30 minutes.
@@ -55,15 +56,12 @@ Arguments to run-tempest may be passed, the arguments are the same as run_tempes
 
 # Environment Variables
 
-Dockenstack currently accepts the following environment variables, which are likely to be expanded:
-
-GIT_BASE
-NOVA_REPO
-NOVA_BRANCH
-
+Dockenstack should understand all of the devstack environment variables.
+ 
 # Notes
 
-* AUFS / Volumes - Using AUFS and nested-docker, one normally has to mount /var/lib/docker as a volume or a bind-mount. We do not do that. Instead, we configure the nested docker with a devicemapper driver. This should provide maximum compatibility for varying host configurations.
+* AUFS / Volumes - Using AUFS and nested-docker, one may need to mount /var/lib/docker as a volume or a bind-mount. (pass '-v /var/lib/docker' to 'docker run')
+* Libvirt guests may need kernel modules loaded. If these are not already loaded in the host, you may wish to bind-mount /lib/modules into the container using 'docker run -v /lib/modules:/lib/modules'
 
 # Authors
 
