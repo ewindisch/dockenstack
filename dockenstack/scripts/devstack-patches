@@ -1,6 +1,0 @@
-#!/bin/bash
-cd /devstack
-
-# Make libguestfs noprime
-# https://review.openstack.org/#/c/70774/
-sed -i 's/^python-guestfs$/python-guestfs # NOPRIME/' files/apts/n-cpu

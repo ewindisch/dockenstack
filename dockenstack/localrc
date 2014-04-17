@@ -20,16 +20,9 @@ SCREEN_LOGDIR=/opt/stack/logs
 HOST_IP_IFACE=eth0
 
 IMAGE_URLS=
+DEFAULT_IMAGE_NAME=cirros
 
 VIRT_DRIVER=docker
-
-# Default to using Eric's private branch
-# which has important fixes and, furthermore,
-# still has docker available...
-# -- this will be changed to using the stackforge
-#    plugin, once it is better tested.
-NOVA_BRANCH=docker-ci
-NOVA_REPO=https://github.com/ewindisch/nova
 
 # Include ".d" directory
 for script in /devstack/localrc.d/*; do

@@ -1,7 +1,7 @@
 # Eric Windisch '2014
 # Forked from code by original author: Paul Czarkowski
 
-FROM ubuntu:raring
+FROM ubuntu:saucy
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80 5000 8773 8774 8776 9292
@@ -50,12 +50,6 @@ RUN chmod 755 /opt/dockenstack/bin/*
 # Install devstack scripts
 RUN git clone https://github.com/openstack-dev/devstack /devstack
 
-# Last known-working version of Devstack (before Docker was removed)
-RUN cd /devstack; git checkout 3c78e080864c9b202132d8ce0e493933f3d2ab36
-
-# Patch devstack
-RUN /bin/bash /opt/dockenstack/bin/devstack-patches
-
 # Install prereq packages.
 RUN /devstack/tools/install_prereqs.sh
 
@@ -69,10 +63,16 @@ RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements
 # Pre-checkout git repos
 RUN su devstack -c '/bin/bash /opt/dockenstack/bin/openstack-git-checkout'
 
+RUN git clone https://github.com/stackforge/nova-docker /opt/stack/nova-docker
+WORKDIR /opt/stack/nova-docker
+RUN cp contrib/devstack/extras.d/70-docker.sh /devstack/extras.d/; \
+    cp contrib/devstack/lib/nova_plugins/hypervisor-docker /devstack/lib/nova_plugins/;
+
 WORKDIR /devstack
 ADD localrc /devstack/localrc
 ADD localrc.d /devstack/localrc.d
 
+WORKDIR /
 # Fix ownership of all files
 RUN chown -R devstack /devstack
 

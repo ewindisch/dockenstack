@@ -19,15 +19,15 @@ if [ -n "$STABLE_RELEASE" ]; then
     git checkout stable/${STABLE_RELEASE}
 fi
 
-# Git repos
-cat <<EOF >>/devstack/localrc.d/005-nova-git
-# Base GIT Repo URL
-# Another option is http://review.openstack.org/p
-GIT_BASE=${GIT_BASE:-git://git.openstack.org}
-# compute service
-NOVA_REPO=${NOVA_REPO:-${GIT_BASE}/openstack/nova.git}
-NOVA_BRANCH=${NOVA_BRANCH:-master}
-EOF
+## Git repos
+#cat <<EOF >>/devstack/localrc.d/005-nova-git
+## Base GIT Repo URL
+## Another option is http://review.openstack.org/p
+#GIT_BASE=${GIT_BASE:-git://git.openstack.org}
+## compute service
+#NOVA_REPO=${NOVA_REPO:-${GIT_BASE}/openstack/nova.git}
+#NOVA_BRANCH=${NOVA_BRANCH:-master}
+#EOF
 
 function docker_has_image {
     test $(docker images -q $1 | wc -l) -gt 0
