@@ -56,6 +56,11 @@ RUN /devstack/tools/install_prereqs.sh
 # Pre-download all "NOPRIME" packages
 RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
 
+# Install/configure dbus for libvirt (only needed if using libvirt drivers, not docker)
+# creates symlink to /usr/bin due to bug in saucy's init script for dbus.
+RUN apt-get install -q -y dbus; \;
+    ln -s /bin/dbus-daemon /usr/bin/dbus-daemon
+
 # Install all pip requirements
 RUN pip install -r https://raw.github.com/openstack/requirements/master/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
