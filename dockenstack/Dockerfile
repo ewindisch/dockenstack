@@ -58,7 +58,7 @@ RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
 
 # Install/configure dbus for libvirt (only needed if using libvirt drivers, not docker)
 # creates symlink to /usr/bin due to bug in saucy's init script for dbus.
-RUN apt-get install -q -y dbus; \;
+RUN apt-get install -q -y dbus; \
     ln -s /bin/dbus-daemon /usr/bin/dbus-daemon
 
 # Install all pip requirements
