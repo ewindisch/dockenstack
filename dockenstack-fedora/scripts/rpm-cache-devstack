@@ -1,0 +1,4 @@
+#!/bin/bash
+pushd /devstack
+yum -y install $(grep -h NOPRIME files/rpms/* | sed '/dist/d; s/\s*#.*//;')
+popd

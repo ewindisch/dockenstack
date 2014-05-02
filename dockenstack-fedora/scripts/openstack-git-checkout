@@ -1,0 +1,11 @@
+#!/bin/bash
+# Embarrassingly bad shell scripting below (because one 'eval' isn't enough!)
+cd /devstack
+. functions
+. stackrc
+
+# Workaround https://bugs.launchpad.net/tripleo/+bug/1285954
+BM_POSEUR_REPO=https://github.com/tripleo/bm_poseur
+BM_POSEUR_DIR=/opt/stack/bm_poseur
+
+cat <(echo ". functions; . stackrc") <(for project in $(declare | sed -n '/_REPO=/{ s/^\(.*\)_REPO=.*/\1/; p; }'); do eval "echo git_clone \$${project}_REPO $(git grep -h ${project}_DIR= | sed 's/.*=//') \$${project}_BRANCH \|\| :";  done | grep git.openstack.org) | bash

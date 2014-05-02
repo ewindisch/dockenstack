@@ -1,0 +1,3 @@
+#!/bin/sh
+/opt/dockenstack/bin/devstack-init &&
+su devstack -c "/opt/stack/tempest/run_tempest.sh -N $@"

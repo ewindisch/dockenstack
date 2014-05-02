@@ -1,0 +1,10 @@
+disable_service horizon
+disable_service n-novnc
+disable_service n-xvnc
+disable_service n-spice
+
+disable_service cinder
+disable_service c-sch
+disable_service c-api
+disable_service c-vol
+disable_service c-bak

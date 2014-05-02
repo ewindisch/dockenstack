@@ -1,0 +1,57 @@
+#!/bin/bash -e
+
+mysqld_safe &
+
+service rabbitmq-server start
+
+/opt/dockenstack/bin/wrapdocker 
+
+# Matches the fixed range in the devstack localrc
+ifconfig eth0:1 inet 10.1.0.1/24
+
+if [ -n "$STABLE_RELEASE" ]; then
+    # Sets the branch for each project, if tagging a stable release.
+    # This regex sanitizes our input...
+    STABLE_RELEASE=${STABLE_RELEASE//[^a-zA-Z0-9_]/}
+    sed -n "/_BRANCH=/{ s/=.*/=stable\/${STABLE_RELEASE}/g; p; }" /devstack/stackrc >> /devstack/localrc.d/001-stable-branch
+
+    cd /devstack
+    git checkout stable/${STABLE_RELEASE}
+fi
+
+## Git repos
+#cat <<EOF >>/devstack/localrc.d/005-nova-git
+## Base GIT Repo URL
+## Another option is http://review.openstack.org/p
+#GIT_BASE=${GIT_BASE:-git://git.openstack.org}
+## compute service
+#NOVA_REPO=${NOVA_REPO:-${GIT_BASE}/openstack/nova.git}
+#NOVA_BRANCH=${NOVA_BRANCH:-master}
+#EOF
+
+function docker_has_image {
+    test $(docker images -q $1 | wc -l) -gt 0
+}
+
+# Some of these tags are to support differing versions of
+# devstack...
+# Icehouse-3
+if ! ( docker_has_image cirros ); then
+    if [ -f /opt/dockenstack/images/cirros.img ]; then
+        docker load < /opt/dockenstack/images/cirros.img
+    else
+        docker pull cirros
+    fi
+fi
+# Havana+
+if ! ( docker_has_image registry ); then
+    if [ -f /opt/dockenstack/images/registry.img ]; then
+        docker load < /opt/dockenstack/images/registry.img
+    else
+        docker pull registry
+    fi
+    # up until Icehouse-2
+    docker tag registry docker-registry
+fi
+
+su devstack -c '/devstack/stack.sh'
