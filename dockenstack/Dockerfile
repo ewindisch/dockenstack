@@ -61,6 +61,12 @@ RUN /bin/bash /opt/dockenstack/bin/apt-cache-devstack
 RUN apt-get install -q -y dbus; \
     ln -s /bin/dbus-daemon /usr/bin/dbus-daemon
 
+# Mask python-six because the apt package can conflict with the pypi version.
+RUN apt-get remove -q -y python-six
+
+# Install six from pip before getting from global-requirements (due to bugs...)
+RUN pip install six
+
 # Install all pip requirements
 RUN pip install -r https://raw.github.com/openstack/requirements/master/global-requirements.txt
 RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
