@@ -15,6 +15,9 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F9
 # Install utilities
 RUN apt-get -qqy install git socat curl sudo apt-transport-https vim wget
 
+# Install apparmor
+RUN apt-get -qqy install apparmor
+
 # Extra requirements for pip-requirements
 RUN apt-get install -qqy libffi-dev
 
