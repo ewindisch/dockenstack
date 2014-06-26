@@ -1,7 +1,7 @@
 # Eric Windisch '2014
 # Forked from code by original author: Paul Czarkowski
 
-FROM ubuntu:saucy
+FROM ubuntu:trusty
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80 5000 8773 8774 8776 9292
@@ -19,7 +19,7 @@ RUN apt-get -qqy install git socat curl sudo apt-transport-https vim wget
 RUN apt-get -qqy install apparmor
 
 # Extra requirements for pip-requirements
-RUN apt-get install -qqy libffi-dev
+RUN apt-get install -qqy libffi-dev libkrb5-dev
 
 # Configure and install MySQL
 RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-set-selections; \
