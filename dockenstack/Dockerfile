@@ -67,6 +67,9 @@ RUN apt-get install -q -y dbus; \
 # Mask python-six because the apt package can conflict with the pypi version.
 RUN apt-get remove -q -y python-six
 
+# python-pip just became collatoral damage.  reinstall it.
+RUN apt-get install -q -y python-pip
+
 # Install six from pip before getting from global-requirements (due to bugs...)
 RUN pip install six
 
