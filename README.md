@@ -60,6 +60,7 @@ Dockenstack should understand all of the devstack environment variables.
  
 # Notes
 
+* Requires Docker 1.0 or later.
 * AUFS / Volumes - Using AUFS and nested-docker, one may need to mount /var/lib/docker as a volume or a bind-mount. (pass '-v /var/lib/docker' to 'docker run')
 * Libvirt guests may need kernel modules loaded. If these are not already loaded in the host, you may wish to bind-mount /lib/modules into the container using 'docker run -v /lib/modules:/lib/modules'
 
