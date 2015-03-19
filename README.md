@@ -26,7 +26,7 @@ WARNING: This takes a while.
 git clone https://github.com/ewindisch/dockenstack.git
 cd dockenstack
 docker build -t ewindisch/dockenstack dockenstack
-docker run -privileged -t -i dockenstack
+docker run -privileged -t -i ewindisch/dockenstack
 ```
 
 # Using OpenStack
