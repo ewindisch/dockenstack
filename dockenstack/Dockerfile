@@ -7,7 +7,7 @@ MAINTAINER Eric Windisch "ewindisch@docker.com"
 EXPOSE 80 5000 8773 8774 8776 9292
 
 # Install Docker
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
+RUN apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
     echo 'deb http://get.docker.io/ubuntu docker main' > /etc/apt/sources.list.d/docker.list; \
     apt-get update; \
     apt-get install -qqy lxc-docker
@@ -19,7 +19,7 @@ RUN apt-get -qqy install git socat curl sudo apt-transport-https vim wget net-to
 RUN apt-get -qqy install apparmor
 
 # Extra requirements for pip-requirements
-RUN apt-get install -qqy libffi-dev libkrb5-dev
+RUN apt-get install -qqy libffi-dev libkrb5-dev libev-dev libvirt-dev pkg-config
 
 # Configure and install MySQL
 RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-set-selections; \
@@ -68,7 +68,7 @@ RUN pip install six
 
 # Install all pip requirements
 RUN pip install -r https://raw.github.com/openstack/requirements/master/global-requirements.txt
-RUN pip install -r https://raw2.github.com/openstack/tempest/master/requirements.txt
+RUN pip install -r https://raw.github.com/openstack/tempest/master/requirements.txt
 
 # Pre-checkout git repos
 RUN su devstack -c '/bin/bash /opt/dockenstack/bin/openstack-git-checkout'
