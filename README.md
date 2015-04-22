@@ -10,22 +10,28 @@ Users may expect dockenstack to take 2-4 minutes on a fast machine from "docker 
 
 # Build & Run
 
-## Trusted Build from index.docker.io
+## Quickstart: Using Docker Compose
 
-This leverages our "Trusted Build" process and daily-build system.
+$ git clone https://github.com/ewindisch/dockenstack.git
+$ cd dockenstack
+$ docker-compose up
 
-```
-docker run -privileged -t -i ewindisch/dockenstack
-```
+This will automatically build a Dockenstack image and run OpenStack.
 
-## Self built
+The first run will take a long time due to the length process of
+building the Docker image (~60m). Subsequent runs of this image will be
+quicker (~5m). Even faster, of course, is restarting a container.
 
-WARNING: This takes a while.
+## Alternative Install: Building Manually
+
+The following is the process undertaken by Docker Compose.
+Building the image may take approximately 60 minutes.
 
 ```
 git clone https://github.com/ewindisch/dockenstack.git
 cd dockenstack
 docker build -t ewindisch/dockenstack dockenstack
+docker build -t ewindisch/dockenstack-tempest dockenstack-tempest
 docker run -privileged -t -i ewindisch/dockenstack
 ```
 
@@ -35,7 +41,7 @@ If you've started dockenstack interactively without extra arguments, you'll end 
 
 ```
 source /devstack/openrc
-nova boot --image docker-busybox:latest --flavor 1 test
+nova boot --image busybox --flavor 1 test
 nova list
 docker ps
 ```
@@ -47,22 +53,24 @@ A future version of this README will explain how to use the OpenStack installati
 Launch the container as such:
 
 ```
-docker run -privileged -t -i ewindisch/dockenstack /usr/local/bin/run-tempest
+docker run -privileged -t -i ewindisch/dockenstack-tempest
 ```
 
 Running Tempest in Dockenstack may take approximately 30 minutes.
 
 Arguments to run-tempest may be passed, the arguments are the same as run_tempest.sh (see Tempest documentation / source)
 
-# Environment Variables
+# Configuration
 
-Dockenstack should understand all of the devstack environment variables.
- 
+Dockenstack should understand all of the devstack environment variables
+passed as enviroment variables to 'docker run'. If using Docker Compose,
+these environment variables may be added to the fig.yml file.
+
 # Notes
 
-* Requires Docker 1.0 or later.
+* Requires Docker 1.3.3 or later.
 * AUFS / Volumes - Using AUFS and nested-docker, one may need to mount /var/lib/docker as a volume or a bind-mount. (pass '-v /var/lib/docker' to 'docker run')
-* Libvirt guests may need kernel modules loaded. If these are not already loaded in the host, you may wish to bind-mount /lib/modules into the container using 'docker run -v /lib/modules:/lib/modules'
+* Libvirt guests may need kernel modules loaded. Libvirt/Qemu support is neither tested nor complete.
 
 # Authors
 
