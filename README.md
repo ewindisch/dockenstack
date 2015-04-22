@@ -12,9 +12,11 @@ Users may expect dockenstack to take 2-4 minutes on a fast machine from "docker 
 
 ## Quickstart: Using Docker Compose
 
+```
 $ git clone https://github.com/ewindisch/dockenstack.git
 $ cd dockenstack
 $ docker-compose up
+```
 
 This will automatically build a Dockenstack image and run OpenStack.
 
