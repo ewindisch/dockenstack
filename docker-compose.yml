@@ -1,0 +1,3 @@
+dockenstack:
+    build: dockenstack
+    privileged: true
