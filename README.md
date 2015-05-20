@@ -34,7 +34,7 @@ git clone https://github.com/ewindisch/dockenstack.git
 cd dockenstack
 docker build -t ewindisch/dockenstack dockenstack
 docker build -t ewindisch/dockenstack-tempest dockenstack-tempest
-docker run -privileged -t -i ewindisch/dockenstack
+docker run --privileged -t -i ewindisch/dockenstack
 ```
 
 # Using OpenStack
@@ -55,7 +55,7 @@ A future version of this README will explain how to use the OpenStack installati
 Launch the container as such:
 
 ```
-docker run -privileged -t -i ewindisch/dockenstack-tempest
+docker run --privileged -t -i ewindisch/dockenstack-tempest
 ```
 
 Running Tempest in Dockenstack may take approximately 30 minutes.
