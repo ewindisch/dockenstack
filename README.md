@@ -70,7 +70,7 @@ these environment variables may be added to the fig.yml file.
 
 # Notes
 
-* Requires Docker 1.3.3 or later.
+* Requires Docker 1.5 or later.
 * AUFS / Volumes - Using AUFS and nested-docker, one may need to mount /var/lib/docker as a volume or a bind-mount. (pass '-v /var/lib/docker' to 'docker run')
 * Libvirt guests may need kernel modules loaded. Libvirt/Qemu support is neither tested nor complete.
 
