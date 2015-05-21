@@ -17,13 +17,15 @@ RUN apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D786
     apt-get install -qqy lxc-docker
 
 # Install utilities
-RUN apt-get -qqy install git socat curl sudo apt-transport-https vim wget net-tools
+RUN apt-get -qqy install git socat curl sudo vim wget net-tools
 
 # Install apparmor
 RUN apt-get -qqy install apparmor
 
 # Extra requirements for pip-requirements
-RUN apt-get install -qqy libffi-dev libkrb5-dev libev-dev libvirt-dev pkg-config
+RUN apt-get install -qqy libffi-dev libkrb5-dev libev-dev libvirt-dev libsqlite3-dev libxml2-dev libxslt-dev \ 
+    libpq-dev libssl-dev libyaml-dev
+
 
 # Configure and install MySQL
 RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-set-selections; \
