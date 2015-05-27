@@ -6,14 +6,14 @@ MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80 5000 8773 8774 8776 9292
 
+# Install utilities
+RUN apt-get update -y && apt-get -qqy install git socat curl sudo apt-transport-https vim wget net-tools
+
 # Install Docker
 RUN apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
     echo 'deb http://get.docker.io/ubuntu docker main' > /etc/apt/sources.list.d/docker.list; \
     apt-get update; \
     apt-get install -qqy lxc-docker
-
-# Install utilities
-RUN apt-get -qqy install git socat curl sudo apt-transport-https vim wget net-tools
 
 # Install apparmor
 RUN apt-get -qqy install apparmor
