@@ -5,21 +5,24 @@ FROM ubuntu:trusty
 MAINTAINER Eric Windisch "ewindisch@docker.com"
 
 EXPOSE 80 5000 8773 8774 8776 9292
-
+# Set DEBIAN_FRONTEND to avoid warning like "debconf: (TERM is not set, so the dialog frontend is not usable.)"
+ENV DEBIAN_FRONTEND="noninteractive"
 # Install Docker
-RUN apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
+RUN apt-get install -qqy apt-transport-https; apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
     echo 'deb http://get.docker.io/ubuntu docker main' > /etc/apt/sources.list.d/docker.list; \
     apt-get update; \
     apt-get install -qqy lxc-docker
 
 # Install utilities
-RUN apt-get -qqy install git socat curl sudo apt-transport-https vim wget net-tools
+RUN apt-get -qqy install git socat curl sudo vim wget net-tools
 
 # Install apparmor
 RUN apt-get -qqy install apparmor
 
 # Extra requirements for pip-requirements
-RUN apt-get install -qqy libffi-dev libkrb5-dev libev-dev libvirt-dev pkg-config
+RUN apt-get install -qqy libffi-dev libkrb5-dev libev-dev libvirt-dev libsqlite3-dev libxml2-dev libxslt-dev \ 
+    libpq-dev libssl-dev libyaml-dev
+
 
 # Configure and install MySQL
 RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-set-selections; \
