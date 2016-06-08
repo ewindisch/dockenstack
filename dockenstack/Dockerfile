@@ -33,7 +33,7 @@ RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-s
 RUN apt-get -qqy install rabbitmq-server
 
 # Copy in docker images
-RUN docker -d -b none -s vfs & sleep 1; docker pull cirros
+RUN docker daemon -b none -s vfs & sleep 1; docker pull cirros
 
 # Setup devstack user
 RUN mkdir -p /opt; \
