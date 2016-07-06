@@ -8,7 +8,7 @@ EXPOSE 80 5000 8773 8774 8776 9292
 # Set DEBIAN_FRONTEND to avoid warning like "debconf: (TERM is not set, so the dialog frontend is not usable.)"
 ENV DEBIAN_FRONTEND="noninteractive"
 # Install Docker
-RUN apt-get install -qqy apt-transport-https; apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
+RUN apt-get update; apt-get install -qqy apt-transport-https; apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9; \
     echo 'deb http://get.docker.io/ubuntu docker main' > /etc/apt/sources.list.d/docker.list; \
     apt-get update; \
     apt-get install -qqy lxc-docker
@@ -33,7 +33,7 @@ RUN echo 'mysql-server mysql-server/root_password password devstack' | debconf-s
 RUN apt-get -qqy install rabbitmq-server
 
 # Copy in docker images
-RUN docker -d -b none -s vfs & sleep 1; docker pull cirros
+RUN docker daemon -b none -s vfs & sleep 1; docker pull cirros
 
 # Setup devstack user
 RUN mkdir -p /opt; \
