@@ -1,3 +1,9 @@
+# Notice
+
+This project is quite dated and might not work as expected. 
+
+For a recent version please also have a look at [janmattfeld/DockStack](https://github.com/janmattfeld/DockStack)
+
 # Openstack on Docker
 
 Dockenstack builds an image for running OpenStack's devstack development and testing environment inside of a Docker container. This image currently supports running the docker and libvirt-lxc virtualization drivers for Nova. KVM/Qemu support is being tested.
